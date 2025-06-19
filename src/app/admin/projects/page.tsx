@@ -4,12 +4,14 @@ import { useState, useEffect } from 'react'
 import Modal from '@/components/Modal'
 import Skeleton from '@/components/Skeleton'
 import { CustomTable } from '@/components/Table'
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
+import Link from 'next/link'
 
 type Project = {
   id: string
   title: string
   description: string
-  images: string
+  image: string
   projectLink: string
 }
 
@@ -18,7 +20,7 @@ export default function ProjectsAdmin() {
   const [loading, setLoading] = useState(false)
 
   const [title, setTitle] = useState('')
-  const [images, setImages] = useState('') // imagetype here how
+  const [image, setImage] = useState<File | null>(null)
   const [projectLink, setProjectLink] = useState('')
   const [desc, setDesc] = useState('')
   const [projects, setProjects] = useState<Project[]>([])
@@ -44,6 +46,15 @@ export default function ProjectsAdmin() {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
+    let imageUrl = ''
+
+    if (image) {
+      const storage = getStorage()
+      const imgRef = ref(storage, `projects/${Date.now()}_${image.name}`)
+      await uploadBytes(imgRef, image)
+      imageUrl = await getDownloadURL(imgRef)
+    }
+
     await fetch('/api/projects', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -51,7 +62,7 @@ export default function ProjectsAdmin() {
     })
     setTitle('')
     setDesc('')
-    setImages('')
+    setImage(null)
     setProjectLink('')
     fetchProjects()
     closeModal()
@@ -93,9 +104,9 @@ export default function ProjectsAdmin() {
               required
             />
             <input
-              value={images}
               type="file"
-              onChange={(e) => setImages(e.target.value)}
+              accept="image/*"
+              onChange={(e) => setImage(e.target.files?.[0] || null)}
               placeholder="Изображение"
               className="border px-3 py-2 rounded"
             />
@@ -124,7 +135,7 @@ export default function ProjectsAdmin() {
           columns={[
             { header: 'Название', render: (r) => r.title },
             { header: 'Описание', render: (r) => r.description },
-            { header: 'Изображение', render: (r) => r.images },
+            { header: 'Изображение', render: (r) => <Link href={r.image ?? '/'}>{r.image}</Link> },
             { header: 'Ссылка', render: (r) => r.projectLink },
             {
               header: 'Действие',

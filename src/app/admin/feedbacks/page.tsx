@@ -1,10 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Modal from '@/components/Modal'
 import Skeleton from '@/components/Skeleton'
 import { CustomTable } from '@/components/Table'
-import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
 import Link from 'next/link'
 
 type Feedback = {
@@ -18,16 +16,7 @@ type Feedback = {
 }
 
 export default function FeedbackAdmin() {
-  const [modalOpen, setModalOpen] = useState(false)
   const [loading, setLoading] = useState(false)
-
-  // Правильные состояния для feedback
-  const [name, setName] = useState('')
-  const [number, setNumber] = useState('')
-  const [emailOrTelegram, setEmailOrTelegram] = useState('')
-  const [description, setDescription] = useState('')
-  const [category, setCategory] = useState('')
-  const [file, setFile] = useState<File | null>(null)
   const [feedback, setFeedback] = useState<Feedback[]>([])
 
   const fetchFeedbacks = async () => {
@@ -41,52 +30,6 @@ export default function FeedbackAdmin() {
   useEffect(() => {
     fetchFeedbacks()
   }, [])
-
-  function openModal() {
-    setModalOpen(true)
-  }
-
-  function closeModal() {
-    setModalOpen(false)
-    // Очистить форму при закрытии
-    setName('')
-    setNumber('')
-    setEmailOrTelegram('')
-    setDescription('')
-    setCategory('')
-    setFile(null)
-  }
-
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-
-    let fileUrl = ''
-
-    if (file) {
-      const storage = getStorage()
-      const fileRef = ref(storage, `feedbacks/${Date.now()}_${file.name}`)
-      await uploadBytes(fileRef, file)
-      fileUrl = await getDownloadURL(fileRef)
-    }
-
-    await fetch('/api/feedbacks', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name,
-        number,
-        category,
-        description,
-        emailOrTelegram,
-        fileUrl,
-      }),
-    })
-
-    await fetchFeedbacks()
-    setLoading(false)
-    closeModal()
-  }
 
   const remove = async (id: string) => {
     await fetch('/api/feedbacks', {
@@ -104,7 +47,7 @@ export default function FeedbackAdmin() {
       </div>
 
       {loading ? (
-        <Skeleton width="100%" height={400} />
+        <Skeleton width="100%" height={200} />
       ) : (
         <CustomTable
           data={feedback}

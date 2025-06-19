@@ -27,7 +27,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     return () => unsubscribe()
   }, [router, currentPath])
 
-  if (loading) return <div className="p-8">Checking auth...</div>
+  if (loading) return <div className="p-8">Проверка пользователя...</div>
   if (!authenticated && currentPath !== '/admin/login') return null
 
   return (
