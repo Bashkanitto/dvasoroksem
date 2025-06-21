@@ -78,10 +78,10 @@ export default function ProjectsAdmin() {
   }
 
   return (
-    <div className="p-6 bg-white rounded-xl">
+    <div className="p-4 bg-white rounded-xl">
       <div className="flex justify-between items-center mb-10">
         <h1 className="text-2xl font-bold mb-4">Проекты</h1>
-        <button className="p-4 bg-blue-500 rounded-xl text-white" onClick={openModal}>
+        <button className="p-4 bg-[#6F73F3] rounded-xl text-white" onClick={openModal}>
           Добавить
         </button>
       </div>
