@@ -7,7 +7,7 @@ import Image from 'next/image'
 import Paper from '@/components/Paper'
 import AnimationSection from '@/components/AnimationSection'
 
-export default function CasesPage() {
+export default function ServicesPage() {
   const t = useTranslations('cases')
   const cases = [
     'case_content_brand_values',
