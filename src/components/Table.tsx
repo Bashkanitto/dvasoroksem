@@ -1,3 +1,5 @@
+import { colors } from '@/shared/constants/colors'
+
 type TableProps<T> = {
   data: T[]
   columns: { header: string; render: (item: T) => React.ReactNode }[]
@@ -6,22 +8,28 @@ type TableProps<T> = {
 export const CustomTable = <T,>({ data, columns }: TableProps<T>) => {
   return (
     <div className="overflow-x-auto rounded-xl">
-      <table className="min-w-full table-auto rounded-xl">
-        <thead className="bg-gray-100">
+      <table className="min-w-full table-auto">
+        <thead>
           <tr>
+            <input type="checkbox" className="mt-3" />
             {columns.map((c: any) => (
-              <th className="px-4 py-2 text-left" key={c.header}>
+              <th
+                className="px-4 py-2 text-left font-normal"
+                style={{ color: colors.text }}
+                key={c.header}
+              >
                 {c.header}
               </th>
             ))}
           </tr>
         </thead>
 
-        <tbody className="bg-gray-100">
+        <tbody>
           {data.map((row, index) => (
             <tr key={index}>
+              <input type="checkbox" className="mt-6" />
               {columns.map((c) => (
-                <td className="px-4 py-2 text-left" key={c.header}>
+                <td className="px-4 py-2 text-left text-[14px]" key={c.header}>
                   {c.render(row)}
                 </td>
               ))}
