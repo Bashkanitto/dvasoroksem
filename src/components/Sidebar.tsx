@@ -70,7 +70,7 @@ const Sidebar = () => {
         <li>
           <Link
             href="/admin/projects"
-            className={`flex gap-2 p-4 hover:bg-blue-50 ${
+            className={`flex gap-2 p-4 over:bg-[#F0F3FF] text-neutral-500 ${
               pathname.startsWith('/admin/projects') ? 'text-[#6F73F3] bg-[#F0F3FF]' : ''
             }`}
           >
