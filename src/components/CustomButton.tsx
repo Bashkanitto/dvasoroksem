@@ -4,16 +4,19 @@ export function CustomButton({
   type,
   className,
   children,
+  disabled,
   onClick,
 }: {
   type: 'button' | 'submit' | 'reset'
   className?: string
+  disabled?: boolean
   children?: React.ReactNode
   onClick?: React.MouseEventHandler<HTMLButtonElement>
 }) {
   return (
     <button
       type={type}
+      disabled={disabled}
       className={className}
       onClick={onClick}
       style={{
