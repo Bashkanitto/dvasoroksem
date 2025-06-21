@@ -26,27 +26,27 @@ const Header = () => {
           <ul className="flex items-center gap-x-[35px] text-[16px] font-medium text-gray-600">
             <li>
               <Link href="/about" className="hover:text-black">
-                О нас
+                {t('about')}
               </Link>
             </li>
             <li>
               <Link href="/portfolio" className="hover:text-black">
-                Портфолио
+                {t('portfolio')}
               </Link>
             </li>
             <li>
-              <Link href="/cases" className="flex items-center gap-1 hover:text-black">
-                Услуги ▼
+              <Link href="/services" className="flex items-center gap-1 hover:text-black">
+                {t('services')}▼
               </Link>
             </li>
             <li>
               <Link href="/reviews" className="hover:text-black">
-                Отзывы
+                {t('reviews')}
               </Link>
             </li>
             <li>
               <Link href="/articles" className="hover:text-black">
-                Статьи
+                {t('articles')}
               </Link>
             </li>
           </ul>
