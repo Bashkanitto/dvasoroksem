@@ -16,7 +16,7 @@ export default function ServicesPage() {
     'case_targeting_key_visual',
   ]
   return (
-    <section aria-label="Секция кейсов" className="w-full lg:w-[1440px] mx-auto">
+    <section aria-label="Секция кейсов" className="w-full xl:w-[1440px] mx-auto">
       <AnimationSection className='w-full h-[500px] lg:h-[814px] bg-[url("/images/casesHero.png")] bg-no-repeat bg-cover'></AnimationSection>
 
       <div className="mt-[50px] lg:mt-[100px] w-[88%] mx-auto">

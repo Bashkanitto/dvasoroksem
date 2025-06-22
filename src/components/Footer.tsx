@@ -10,7 +10,7 @@ const Footer = () => {
 
   return (
     <AnimationSection>
-      <footer className="bg-black h-full lg:h-[412px] w-full lg:w-[1440px] mx-auto text-white">
+      <footer className="bg-black h-full lg:h-[412px] w-full xl:w-[1440px] mx-auto text-white">
         <div className="flex flex-col lg:flex-row gap-[50px] lg:pt-[100px] p-4 lg:px-[100px]">
           <div className="w-full">
             <h2 className="text-[58px]">2.47</h2>

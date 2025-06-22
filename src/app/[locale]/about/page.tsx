@@ -78,7 +78,7 @@ export default function AboutPage() {
     },
   ]
   return (
-    <section className="max-w-[100vw] lg:w-[1440px] mx-auto px-4 p-2">
+    <section className="max-w-[100vw] xl:w-[1440px] mx-auto px-4 p-2">
       <div className="pt-[200px] w-full lg:w-[88%] mx-auto">
         <AnimationSection>
           <h2 className="w-full lg:w-2/3 text-center mx-auto text-[42px] lg:text-[58px]">
