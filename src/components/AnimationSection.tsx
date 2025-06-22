@@ -1,5 +1,6 @@
 // components/animations/ScrollAnimationSection.tsx
 'use client'
+
 import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, ReactNode, CSSProperties } from 'react'

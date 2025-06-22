@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Sidebar from '@/components/Sidebar'
-import { authStore } from '@/store' // импортируем экземпляр
+import { authStore } from '@/store'
 
 const AdminLayout = observer(({ children }: { children: React.ReactNode }) => {
   const router = useRouter()

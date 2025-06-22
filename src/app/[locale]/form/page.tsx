@@ -1,4 +1,3 @@
-'use client'
 import { FeedbackForm } from '@/features/feedbackForm/ui'
 
 export default function FormPage() {

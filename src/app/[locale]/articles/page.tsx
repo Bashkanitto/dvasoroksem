@@ -1,4 +1,3 @@
-'use client'
 import ArticlesComponent from '@/features/articles/ui'
 import { FeedbackForm } from '@/features/feedbackForm/ui'
 
