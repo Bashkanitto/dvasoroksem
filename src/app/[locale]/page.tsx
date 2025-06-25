@@ -80,7 +80,7 @@ export default function HomePage() {
 
       <AnimationSection
         aria-label="Секция команды"
-        className="w-full lgw-[86%] mx-auto mt-[50px] lg:mt-[200px] flex flex-col items-center lg:items-start lg:flex-row gap-[50px] p-2"
+        className="w-full lg:w-[86%] mx-auto mt-[50px] lg:mt-[200px] flex flex-col items-center lg:items-start lg:flex-row gap-[50px] p-2"
       >
         <Image
           width={358}
@@ -97,7 +97,7 @@ export default function HomePage() {
             {t('weTwo')}
           </h2>
           <p
-            className="text-[18px] lg:text-[24px] lg:text-[30px] text-center lg:text-start  mt-[20px]"
+            className="text-[18px] lg:text-[24px] text-center lg:text-start  mt-[20px]"
             style={{ color: colors.text }}
           >
             {t('leadMarketing')}
