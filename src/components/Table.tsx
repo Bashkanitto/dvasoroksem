@@ -11,7 +11,6 @@ export const CustomTable = <T,>({ data, columns }: TableProps<T>) => {
       <table className="min-w-full table-auto">
         <thead>
           <tr>
-            <input type="checkbox" className="mt-3" />
             {columns.map((c: any) => (
               <th
                 className="px-4 py-2 text-left font-normal"
@@ -27,7 +26,6 @@ export const CustomTable = <T,>({ data, columns }: TableProps<T>) => {
         <tbody>
           {data.map((row, index) => (
             <tr key={index}>
-              <input type="checkbox" className="mt-6" />
               {columns.map((c) => (
                 <td className="px-4 py-2 text-left text-[14px]" key={c.header}>
                   {c.render(row)}
