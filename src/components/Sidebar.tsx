@@ -36,15 +36,15 @@ const Sidebar = () => {
         </div>
         <li>
           <Link
-            href="/admin/reviews"
+            href="/admin/articles"
             className={`flex gap-2 p-4 hover:bg-[#F0F3FF]  ${
-              pathname.startsWith('/admin/reviews')
+              pathname.startsWith('/admin/articles')
                 ? 'text-[#6F73F3] bg-[#F0F3FF]'
                 : 'text-neutral-500'
             }`}
           >
             <SquareKanban />
-            Отзывы
+            Статьи
           </Link>
         </li>
         <li>
