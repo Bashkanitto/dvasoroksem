@@ -29,7 +29,7 @@ const Sidebar = () => {
     <aside className="w-[350px] h-full flex flex-col justify-between bg-white text-black rounded-xl ">
       <ul>
         <div className="flex justify-between shadow-sm p-4 rounded-t-xl">
-          <h3>2.47</h3>
+          <h3 className="text-[24px]">2.47</h3>
           <button>
             <Settings />
           </button>
