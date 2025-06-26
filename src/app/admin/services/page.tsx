@@ -4,77 +4,101 @@ import { useState, useEffect } from 'react'
 import Modal from '@/components/Modal'
 import Skeleton from '@/components/Skeleton'
 import { CustomTable } from '@/components/Table'
-import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
-import Link from 'next/link'
-
-type ServiceType = {
-  id: string
-  title: string
-  description: string
-  image: string
-  projectLink: string
-}
+import { CaseOption, CaseType } from '@/features/services/api/types'
 
 export default function ServicesAdmin() {
   const [modalOpen, setModalOpen] = useState(false)
   const [loading, setLoading] = useState(false)
-
-  const [title, setTitle] = useState('')
-  const [image, setImage] = useState<File | null>(null)
-  const [projectLink, setProjectLink] = useState('')
-  const [desc, setDesc] = useState('')
-  const [service, setService] = useState<ServiceType[]>([])
-
-  const fetchProjects = async () => {
-    setLoading(true)
-    const res = await fetch('/api/services')
-    const json = await res.json()
-    setService(json.data)
-    setLoading(false)
-  }
+  const [options, setOptions] = useState<CaseOption[]>([{ title: '', text: '' }])
+  const [services, setServices] = useState<CaseType[]>([])
 
   useEffect(() => {
-    fetchProjects()
+    fetchServices()
   }, [])
 
-  function openModal() {
-    setModalOpen(true)
+  const fetchServices = async () => {
+    setLoading(true)
+    try {
+      const res = await fetch('/api/cases')
+      const json = await res.json()
+      if (Array.isArray(json.cases)) {
+        setServices(json.cases)
+      } else {
+        setServices([])
+        alert('Ошибка: неожиданный формат данных')
+      }
+    } catch (err) {
+      console.error('Failed to fetch services:', err)
+      alert('Ошибка при загрузке услуг')
+      setServices([])
+    } finally {
+      setLoading(false)
+    }
   }
-  function closeModal() {
+
+  const openModal = () => setModalOpen(true)
+  const closeModal = () => {
     setModalOpen(false)
+    resetForm()
   }
+
+  const resetForm = () => {
+    setOptions([{ title: '', text: '' }])
+  }
+
+  const handleOptionChange = (index: number, field: keyof CaseOption, value: string) => {
+    const newOptions = [...options]
+    newOptions[index][field] = value
+    setOptions(newOptions)
+  }
+
+  const addOption = () => setOptions([...options, { title: '', text: '' }])
+
+  const removeOption = (index: number) =>
+    setOptions((opts) => opts.filter((_, i) => i !== index) || [{ title: '', text: '' }])
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
-    let imageUrl = ''
+    try {
+      const res = await fetch('/api/cases', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ options }),
+      })
 
-    if (image) {
-      const storage = getStorage()
-      const imgRef = ref(storage, `projects/${Date.now()}_${image.name}`)
-      await uploadBytes(imgRef, image)
-      imageUrl = await getDownloadURL(imgRef)
+      if (res.ok) {
+        alert('Кейс успешно добавлен.')
+      } else {
+        const errorData = await res.json()
+        alert(`Ошибка при добавлении кейса: ${errorData.error || res.statusText}`)
+      }
+    } catch (err) {
+      console.error('Ошибка при отправке данных:', err)
+      alert('Не удалось добавить кейс.')
+    } finally {
+      closeModal()
+      fetchServices()
     }
-
-    await fetch('/api/projects', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title, description: desc }),
-    })
-    setTitle('')
-    setDesc('')
-    setImage(null)
-    setProjectLink('')
-    fetchProjects()
-    closeModal()
   }
 
   const remove = async (id: string) => {
-    await fetch('/api/projects', {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id }),
-    })
-    fetchProjects()
+    try {
+      const res = await fetch(`/api/cases?id=${id}`, {
+        method: 'DELETE',
+      })
+
+      if (res.ok) {
+        alert('Кейс успешно удален.')
+      } else {
+        const errorData = await res.json()
+        alert(`Ошибка при удалении кейса: ${errorData.error || res.statusText}`)
+      }
+    } catch (err) {
+      console.error('Ошибка при удалении кейса:', err)
+      alert('Не удалось удалить кейс.')
+    } finally {
+      fetchServices()
+    }
   }
 
   return (
@@ -89,39 +113,49 @@ export default function ServicesAdmin() {
       {modalOpen && (
         <Modal onClose={closeModal}>
           <form onSubmit={submit} className="flex flex-col gap-3 max-w-md">
-            <input
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Название"
-              className="border px-3 py-2 rounded"
-              required
-            />
-            <textarea
-              value={desc}
-              onChange={(e) => setDesc(e.target.value)}
-              placeholder="Описание"
-              className="border px-3 py-2 rounded"
-              required
-            />
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => setImage(e.target.files?.[0] || null)}
-              placeholder="Изображение"
-              className="border px-3 py-2 rounded"
-            />
-            <input
-              value={projectLink}
-              onChange={(e) => setProjectLink(e.target.value)}
-              placeholder="Ссылка на проект"
-              className="border px-3 py-2 rounded"
-            />
+            {options.map((opt, i) => (
+              <div key={i} className="flex flex-col gap-2 border p-2 rounded bg-gray-50">
+                <input
+                  type="text"
+                  placeholder="Заголовок"
+                  value={opt.title}
+                  onChange={(e) => handleOptionChange(i, 'title', e.target.value)}
+                  className="border px-3 py-2 rounded"
+                  required
+                />
+                <textarea
+                  placeholder="Описание"
+                  value={opt.text}
+                  onChange={(e) => handleOptionChange(i, 'text', e.target.value)}
+                  className="border px-3 py-2 rounded"
+                  required
+                />
+                {options.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => removeOption(i)}
+                    className="text-sm text-red-500 self-end"
+                  >
+                    Удалить
+                  </button>
+                )}
+              </div>
+            ))}
+
+            <button
+              type="button"
+              onClick={addOption}
+              className="bg-gray-200 py-1 px-2 rounded text-sm self-start"
+            >
+              Добавить поле
+            </button>
+
             <button
               type="submit"
-              disabled={!title || !desc}
+              disabled={options.some((o) => !o.title || !o.text)}
               className="bg-blue-600 text-white py-2 rounded disabled:opacity-50"
             >
-              Добавить
+              Сохранить
             </button>
           </form>
         </Modal>
@@ -129,19 +163,31 @@ export default function ServicesAdmin() {
 
       {loading ? (
         <Skeleton width="100%" height={100} />
-      ) : (
+      ) : services.length > 0 ? (
         <CustomTable
-          data={service}
+          data={services}
           columns={[
-            { header: 'Название', render: (r) => r.title },
-            { header: 'Описание', render: (r) => r.description },
-            { header: 'Изображение', render: (r) => <Link href={r.image ?? '/'}>{r.image}</Link> },
-            { header: 'Ссылка', render: (r) => r.projectLink },
+            {
+              header: 'ID',
+              render: (r) => r.id,
+            },
+            {
+              header: 'Опции',
+              render: (r) => (
+                <ul className="text-sm space-y-1">
+                  {r.options.map((opt, idx) => (
+                    <li key={idx}>
+                      <strong>{opt.title}:</strong> {opt.text}
+                    </li>
+                  ))}
+                </ul>
+              ),
+            },
             {
               header: 'Действие',
               render: (r) => (
                 <button
-                  className="bg-red-500 p-2 text-white rounded-xl "
+                  className="bg-red-500 p-2 text-white rounded-xl"
                   onClick={() => remove(r.id)}
                 >
                   Удалить
@@ -150,6 +196,8 @@ export default function ServicesAdmin() {
             },
           ]}
         />
+      ) : (
+        <p className="text-gray-500 text-center">Нет данных</p>
       )}
     </div>
   )
