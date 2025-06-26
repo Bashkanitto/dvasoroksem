@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     'Мы создаем маркетинг, который работает. Увеличьте продажи и узнаваемость вместе с нами.',
 }
 
-export default function ServicesLayout({
+export default function CasesLayout({
   children,
 }: Readonly<{
   children: React.ReactNode

@@ -17,7 +17,7 @@ type CaseType = {
   }[]
 }
 
-export default function ServicesPage() {
+export default function CasesComponent() {
   const t = useTranslations('cases')
   const [cases, setCases] = useState<CaseType[]>([])
   const [caseOpen, setCaseOpen] = useState(0)

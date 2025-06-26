@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react'
 import Modal from '@/components/Modal'
 import Skeleton from '@/components/Skeleton'
 import { CustomTable } from '@/components/Table'
-import { CaseOption, CaseType } from '@/features/services/api/types'
+import { CaseOption, CaseType } from '@/features/cases/api/types'
 
-export default function ServicesAdmin() {
+export default function CasesAdmin() {
   const [modalOpen, setModalOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [options, setOptions] = useState<CaseOption[]>([{ title: '', text: '' }])
@@ -104,7 +104,7 @@ export default function ServicesAdmin() {
   return (
     <div className="p-6 bg-white rounded-xl">
       <div className="flex justify-between items-center mb-10">
-        <h1 className="text-2xl font-bold mb-4">Услуги</h1>
+        <h1 className="text-2xl font-bold mb-4">Кейсы</h1>
         <button className="p-4 bg-blue-500 rounded-xl text-white" onClick={openModal}>
           Добавить
         </button>
