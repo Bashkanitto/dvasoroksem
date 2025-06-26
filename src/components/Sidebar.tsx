@@ -49,15 +49,15 @@ const Sidebar = () => {
         </li>
         <li>
           <Link
-            href="/admin/services"
+            href="/admin/cases"
             className={`flex gap-2 p-4 hover:bg-[#F0F3FF]  ${
-              pathname.startsWith('/admin/services')
+              pathname.startsWith('/admin/cases')
                 ? 'text-[#6F73F3] bg-[#F0F3FF]'
                 : 'text-neutral-500'
             }`}
           >
             <Layers />
-            Услуги
+            Кейсы
           </Link>
         </li>
         <li>

@@ -36,7 +36,7 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link href="/services" className="flex items-center gap-1 hover:text-black">
+              <Link href="/cases" className="flex items-center gap-1 hover:text-black">
                 {t('services')}▼
               </Link>
             </li>
@@ -76,7 +76,7 @@ const Header = () => {
                   href="/about"
                   className="block text-lg font-medium hover:text-orange-500 transition-colors"
                 >
-                  О нас
+                  {t('about')}
                 </Link>
               </li>
               <li>
@@ -84,7 +84,7 @@ const Header = () => {
                   href="/portfolio"
                   className="block text-lg font-medium hover:text-orange-500 transition-colors"
                 >
-                  Портфолио
+                  {t('portfolio')}
                 </Link>
               </li>
               <li>
@@ -92,7 +92,7 @@ const Header = () => {
                   href="/cases"
                   className="block text-lg font-medium hover:text-orange-500 transition-colors"
                 >
-                  Услуги
+                  {t('services')}
                 </Link>
               </li>
               <li>
@@ -100,7 +100,7 @@ const Header = () => {
                   href="/reviews"
                   className="block text-lg font-medium hover:text-orange-500 transition-colors"
                 >
-                  Отзывы
+                  {t('reviews')}
                 </Link>
               </li>
               <li>
@@ -108,7 +108,7 @@ const Header = () => {
                   href="/articles"
                   className="block text-lg font-medium hover:text-orange-500 transition-colors"
                 >
-                  Статьи
+                  {t('articles')}
                 </Link>
               </li>
             </ul>

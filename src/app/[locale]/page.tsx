@@ -1,4 +1,3 @@
-import ServicesSection from '@/features/services/ui'
 import { colors } from '@/shared/constants/colors'
 import { FeedbackForm } from '@/features/feedbackForm/ui'
 import ReviewsSection from '@/features/reviews/ui'
@@ -7,6 +6,7 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { CertificatesSection } from '@/features/certificates/ui'
 import AnimationSection from '@/components/AnimationSection'
+import ServicesSection from '@/components/servicesSection'
 
 export default function HomePage() {
   const t = useTranslations()
@@ -35,7 +35,7 @@ export default function HomePage() {
           <h1 className="mt-[20px] text-center text-[42px] lg:text-[58px]  lg:text-start">
             {t('howWeHelpBusinesses')}
           </h1>
-          <button className="w-[321px] flex justify-center border rounded-full mt-[280px] px-4 py-2  hidden lg:flex  font-medium">
+          <button className="w-[321px] justify-center border rounded-full mt-[280px] px-4 py-2  hidden lg:flex  font-medium">
             {t('seeAllCases')} <ArrowRight />
           </button>
         </div>
@@ -72,7 +72,7 @@ export default function HomePage() {
             src="/images/mobile-result3.png"
             alt="О нашем бизнесе 1"
           />
-          <button className="w-[321px] border rounded-full px-4 py-2 flex justify-center flex lg:hidden">
+          <button className="w-[321px] border rounded-full px-4 py-2 flex justify-center lg:hidden">
             {t('seeAllCases')} <ArrowRight />
           </button>
         </div>
