@@ -1,36 +1,164 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+<img width="1230" alt="image" src="https://github.com/user-attachments/assets/1b871887-0920-41a0-b0ca-27d7c65af271" />
 
-First, run the development server:
+
+
+## 🧰 Frontend-документация проекта [dvasoroksem.com]
+
+**Тип проекта:** Лендинг + админ-панель для рекламного агентства  
+**Целевая аудитория:** клиенты агентства и администраторы контента
+
+### 1. 🚀 Установка и запуск
 
 ```bash
+git clone https://github.com/bashkanitto/dvasoroksem.git
+cd dvasoroksem
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### Сборка
+```bash
+npm run build
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2. 📂 Структура проекта
 
-## Learn More
+```
+/public
+  /images       # Изображения
+  /icons        # Иконки
+  /fonts        # Шрифты
 
-To learn more about Next.js, take a look at the following resources:
+/src
+  /app
+    /api                # API-роуты Next.js (статьи, отзывы, проекты и т.д.)
+    /admin              # Интерфейс админки
+    /[locale]           # Локализованные страницы
+    layout.tsx
+    not-found.tsx
+    page.tsx
+|
+  /components           # Переиспользуемые UI-компоненты
+    Header.tsx
+    Footer.tsx
+    CustomInput.tsx
+    CustomButton.tsx
+    AnimationSection.tsx
+    ...
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  /features             # Модульные фичи (UI + API)
+    /about
+    /articles
+    /reviews
+    /feedbacks
+    /cases
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+  /firebase             # Настройка Firebase клиента
+    client.ts
 
-## Deploy on Vercel
+  /store                # MobX-хранилища
+    AuthStore.ts
+    index.ts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  /shared               # Константы, хуки
+    /constants/colors.ts
+    /hooks/useAuth.ts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+  /i18n                 # Мультиязычность (next-intl)
+    messages/ru.json
+    messages/en.json
+    navigation.ts
+    routing.ts
+    request.ts
+
+  /styles
+    globals.css         # Глобальные стили
+
+.env.local              # Переменные окружения
+middleware.ts           # Middleware для локали
+
+```
+
+---
+
+### 3. 🤖 Технологии
+
+| Технология         | Назначение                         |
+|--------------------|------------------------------------|
+| Next.js            | SSR и маршрутизация                |
+| TypeScript         | Типизация                          |
+| MobX               | Состояние приложения               |
+| Tailwind CSS       | Утилитарная стилизация             |
+| Firebase           | Auth и база данных                 |
+| Axios              | Запросы к API                      |
+| Framer Motion      | Анимации                           |
+| Next intl          | Мультиязычность                    |
+| Lucide-react       | Иконки                             |
+| Vercel             | Деплой                             |
+
+---
+
+### 4. 🎨 Стили
+
+- Tailwind CSS: utility-first подход
+- Глобальные стили: src/styles/globals.css
+- Цветовая палитра в shared/constants/colors.ts
+
+---
+
+### 5. 📦 MobX Store
+
+- Хранилище авторизации: store/AuthStore.ts
+- Все сторы оборачиваются в makeAutoObservable
+- Используйте observer() для реактивных компонентов
+
+---
+
+### 6. 🌍 Мультиязычность
+
+- Используется next-intl
+- Поддержка локалей ru и en
+- Локализованные маршруты: src/app/[locale]/...
+- Файлы перевода: i18n/messages/ru.json, en.json
+
+
+---
+
+### 7. 🔄 API и серверные маршруты
+
+- API-роуты находятся в src/app/api/...
+- Реализованы как server actions для:
+- Статей (articles/route.ts)
+- Отзывов (reviews/route.ts)
+- Проектов, кейсов и фидбэков
+- Связанная логика запросов: в features/<module>/api
+
+---
+
+### 8. 🛤️ Роутинг
+
+- Используется App Router (Next.js)
+- Группировка по локали: [locale]/about, [locale]/services, и т.д.
+- Админ-панель в /admin
+- Middleware для локали: middleware.ts
+
+---
+
+### 9. 📚 Гайды
+
+## Новая локализованная страница:
+- Добавьте папку в app/[locale]/your-page и переводы в i18n/messages
+
+## Добавление API:
+- Создайте файл route.ts в app/api/your-resource/
+
+## Добавление MobX store:
+- store/YourStore.ts → экспортируйте и добавьте в store/index.ts
+
+### 10. 🛠️ Роли и доступ
+Админ-панель /admin защищена авторизацией Firebase.
+Доступ получают только авторизованные пользователи с соответствующей ролью.
+
