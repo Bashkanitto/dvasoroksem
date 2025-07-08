@@ -1,4 +1,4 @@
-import { FeedbackForm } from '@/features/feedbackForm/ui'
+import { Feedback } from '@/features/feedback/ui'
 import ReviewsComponent from '@/features/reviews/ui'
 
 export default function ReviewPage() {
@@ -8,7 +8,7 @@ export default function ReviewPage() {
         <ReviewsComponent />
       </div>
       <div className="mt-[100px]">
-        <FeedbackForm />
+        <Feedback />
       </div>
     </div>
   )

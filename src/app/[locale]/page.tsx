@@ -1,5 +1,5 @@
 import { colors } from '@/shared/constants/colors'
-import { FeedbackForm } from '@/features/feedbackForm/ui'
+import { Feedback } from '@/features/feedback/ui'
 import ReviewsSection from '@/features/reviews/ui'
 import { ArrowRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -111,7 +111,7 @@ export default function HomePage() {
       <ServicesSection />
       <ReviewsSection />
       <CertificatesSection />
-      <FeedbackForm />
+      <Feedback />
     </main>
   )
 }

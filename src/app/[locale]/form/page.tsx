@@ -1,10 +1,10 @@
-import { FeedbackForm } from '@/features/feedbackForm/ui'
+import { Feedback } from '@/features/feedback/ui'
 
 export default function FormPage() {
   return (
     <div className="bg-[url('/images/formBackground.webp')] bg-no-repeat bg-cover">
       <div className="pt-[100px]">
-        <FeedbackForm noBackground />
+        <Feedback noBackground />
       </div>
     </div>
   )

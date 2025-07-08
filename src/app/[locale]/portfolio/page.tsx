@@ -1,4 +1,4 @@
-import { FeedbackForm } from '@/features/feedbackForm/ui'
+import { Feedback } from '@/features/feedback/ui'
 import PortfolioComponent from 'features/portfolio/ui'
 
 export default function PortfolioPage() {
@@ -8,7 +8,7 @@ export default function PortfolioPage() {
         <PortfolioComponent />
       </div>
       <div className="mt-[100px]">
-        <FeedbackForm />
+        <Feedback />
       </div>
     </div>
   )

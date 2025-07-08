@@ -1,5 +1,5 @@
 import { colors } from '@/shared/constants/colors'
-import { FeedbackForm } from '@/features/feedbackForm/ui'
+import { Feedback } from '@/features/feedback/ui'
 import { ArrowUpRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
@@ -184,7 +184,7 @@ export default function AboutPage() {
         </AnimationSection>
       </div>
       <div className="mt-[100px]">
-        <FeedbackForm />
+        <Feedback />
       </div>
     </section>
   )

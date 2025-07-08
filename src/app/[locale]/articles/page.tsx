@@ -1,5 +1,5 @@
 import ArticlesComponent from '@/features/articles/ui'
-import { FeedbackForm } from '@/features/feedbackForm/ui'
+import { Feedback } from '@/features/feedback/ui'
 
 export default function ArticlesPage() {
   return (
@@ -8,7 +8,7 @@ export default function ArticlesPage() {
         <ArticlesComponent />
       </div>
       <div className="mt-[100px]">
-        <FeedbackForm />
+        <Feedback />
       </div>
     </div>
   )
