@@ -1,28 +1,13 @@
 import { colors } from '@/shared/constants/colors'
+import React from 'react'
 
-export function CustomInput({
-  type,
-  placeholder,
-  className,
-  value,
-  required,
-  onChange,
-}: {
-  type: string
-  placeholder?: string
-  className?: string
-  required?: boolean
-  value?: string
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
-  style?: React.CSSProperties
-}) {
+export const CustomInput = React.forwardRef<
+  HTMLInputElement,
+  React.InputHTMLAttributes<HTMLInputElement>
+>(({ className, style, ...rest }, ref) => {
   return (
     <input
-      onChange={onChange}
-      type={type}
-      required={required}
-      value={value}
-      className={className}
+      ref={ref}
       style={{
         width: '100%',
         backgroundColor: colors.secondary,
@@ -32,8 +17,12 @@ export function CustomInput({
         height: '56px',
         padding: '18px',
         borderRadius: '14px',
+        ...style,
       }}
-      placeholder={placeholder}
+      className={className}
+      {...rest}
     />
   )
-}
+})
+
+CustomInput.displayName = 'CustomInput'
