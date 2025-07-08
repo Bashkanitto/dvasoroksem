@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { colors } from '@/shared/constants/colors'
-import { FeedbackForm } from '@/features/feedbackForm/ui'
+import { Feedback } from '@/features/feedback/ui'
 import { InstagramIcon, PlusCircle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
@@ -176,7 +176,7 @@ export default function CasesComponent() {
       </div>
 
       <div className="mt-[100px]">
-        <FeedbackForm />
+        <Feedback />
       </div>
     </section>
   )
